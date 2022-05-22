@@ -15,24 +15,54 @@
   * Domain Path: /languages
   */
 
-  // if ( ! defined( 'ABSPATH' )){
-  //   die;
-  // }
-  // if( ! function_exists( 'add_action' )){
-    //   echo 'hey, you can\t access this file, you are silly man';
-    // }
 
 defined( 'ABSPATH' ) or die('hey you can\t access this file');
 
 class WpLearning
 {
-  function __construct( string $arg)
+
+  function __construct()
   {
-    echo $arg;
+    add_action( 'init',[$this, 'custom_post_type'] );
   }
+
+
+  public function activate()
+  {
+    $this->custom_post_type();
+    // flush_rewrite_rules( );
+  }
+
+  public function deactivate()
+  {
+    // flush_rewrite_rules(  );
+  }
+
+
+  //custom post type
+  public function custom_post_type()
+  {
+    register_post_type( 
+      'books',[
+        'labels' => [
+
+          'name' => __( 'Books', 'wp_learning' ),
+        ],
+        'public' => true,
+          
+      ] );
+  }
+
 }
 
 if (class_exists('WpLearning')){
-  $love = __("love","wp_learning");
-  $wplearning = new WpLearning($love); 
+
+  $wplearning = new WpLearning(); 
+
 }
+
+//plugin activated
+register_activation_hook( __file__,array( $wplearning, "activate" ) );
+
+//plugin deactivated
+register_deactivation_hook( __file__, array( $wplearning, "deactivate" ) );
