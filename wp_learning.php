@@ -34,5 +34,5 @@ class WpLearning
 
 if (class_exists('WpLearning')){
   $love = __("love","wp_learning");
-  $wplearning = new WpLearning($love);
+  $wplearning = new WpLearning($love); 
 }
