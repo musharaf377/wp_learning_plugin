@@ -55,6 +55,7 @@ class WpLearning
 
 }
 
+
 if (class_exists('WpLearning')){
 
   $wplearning = new WpLearning(); 
